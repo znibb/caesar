@@ -12,11 +12,12 @@ def main(argv):
   outputfile = ""
   shift = 0
   inputString = ""
+  keepWhitespace = 0
 
 
   # Try to read cmd line args
   try:
-    opts, args = getopt.getopt(argv, "hvi:o:s:I:")
+    opts, args = getopt.getopt(argv, "hvi:o:s:I:w")
   except getopt.GetoptError:
     print("Usage: caesar.py -h")
     sys.exit(1)
@@ -36,6 +37,8 @@ def main(argv):
       shift = int(arg)
     elif opt == "-I":
       inputString = arg
+    elif opt == "-w":
+      keepWhitespace = 1
 
   # Check that required args were given
   if ((inputfile == "" and inputString == "") or shift == 0):
@@ -53,7 +56,16 @@ def main(argv):
 
   result = ""
   for c in data:
-    result += shiftChar(c, shift)
+    if keepWhitespace == 1:
+      if c == " ":
+        result += " "
+      else:
+        result += shiftChar(c, shift)
+    else:
+      if c == " ":
+        result = result
+      else:
+        result += shiftChar(c, shift)
 
   print(result)
 
