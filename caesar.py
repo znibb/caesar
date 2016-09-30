@@ -26,6 +26,7 @@ def main(argv):
   for opt, arg in opts:
     if opt == "-h":
       print("Minimum invocation: caesar.py -s [..] -i [..]")
+      print("Valid flags are: -v -i -o -s -I -w")
       sys.exit()
     elif opt == "-v":
       verbose = 1
